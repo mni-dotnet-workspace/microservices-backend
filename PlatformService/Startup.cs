@@ -6,7 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PlatformService.Data;
-
+using PlatformService.Repositories;
+using PlatformService.Repositories.impl;
+using System;
 
 namespace PlatformService
 {
@@ -24,7 +26,11 @@ namespace PlatformService
         {
             services.AddDbContext<AppDbContext>(opt => 
             opt.UseInMemoryDatabase("InMem"));
+
+            services.AddScoped<IPlatformRepo, PlatformRepoImpl>();
+              
             services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PlatformService", Version = "v1" });
@@ -51,6 +57,8 @@ namespace PlatformService
             {
                 endpoints.MapControllers();
             });
+
+            PrepDb.PrePopulation(app);
         }
     }
 }

@@ -3,14 +3,13 @@ using PlatformService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace PlatformService.Repositories.impl
 {
-    public class PlatofrmRepoImpl : IPlatformRepo
+    public class PlatformRepoImpl : IPlatformRepo
     {
         private readonly AppDbContext appDbContext;
-        public PlatofrmRepoImpl(AppDbContext appDbContext)
+        public PlatformRepoImpl(AppDbContext appDbContext)
         {
             this.appDbContext = appDbContext;
         }
